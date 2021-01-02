@@ -31,6 +31,7 @@ namespace Glader.ASP.GameConfig.Application
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllers()
+				.RegisterGameConfigControllers()
 				.AddNewtonsoftJson();
 
 			services.RegisterGladerASP();
