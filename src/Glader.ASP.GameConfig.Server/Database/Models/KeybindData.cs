@@ -16,7 +16,7 @@ namespace Glader.ASP.GameConfig
 		/// Binary blob representing the keybindings data.
 		/// </summary>
 		[Required]
-		public byte[] Data { get; set; }
+		public byte[] Data { get; set; } = Array.Empty<byte>();
 
 		public KeybindData(byte[] data)
 		{
