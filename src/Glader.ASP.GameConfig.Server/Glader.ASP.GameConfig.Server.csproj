@@ -1,17 +1,31 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
+  <PropertyGroup>
+    <RootNamespace>Glader.ASP.GameConfig</RootNamespace>
+    <Version>0.0.1</Version>
+    <Authors>Andrew Blakely, Glader</Authors>
+    <Product>Glader.ASP.GameConfig</Product>
+    <Description>Glader.ASP.GameConfig is an ASP Core, EntityFramework, Refit-based and JSON-based Game Configuration service library.</Description>
+    <PackageProjectUrl>https://github.com/HelloKitty/Glader.ASP.RPGCharacter</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/HelloKitty/Glader.ASP.RPGCharacter</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Glader ASP GameConfig Game Configuration GameConfiguration Config</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Glader.Essentials.ASP" Version="2.2.48" />
     <PackageReference Include="Glader.Essentials.Database" Version="2.2.48" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Glader.ASP.GameConfig.Client\Glader.ASP.GameConfig.Client.csproj" />
   </ItemGroup>
 
 </Project>
