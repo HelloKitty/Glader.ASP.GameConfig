@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Glader.Essentials.Models" Version="2.2.48" />
+    <PackageReference Include="Glader.Essentials.Refit" Version="2.2.48" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Glader.ASP.GameConfig.Models\Glader.ASP.GameConfig.Models.csproj" />
+  </ItemGroup>
+
+</Project>
