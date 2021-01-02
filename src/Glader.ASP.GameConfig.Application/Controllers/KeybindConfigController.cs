@@ -41,7 +41,7 @@ namespace Glader.ASP.GameConfig
 		[RequiresAuthentication]
 		[AuthorizeJwt]
 		[HttpPut("account")]
-		public async Task UpdateAccountBindsAsync(KeybindConfigurationUpdateRequest request, CancellationToken token = default)
+		public async Task UpdateAccountBindsAsync([FromBody] KeybindConfigurationUpdateRequest request, CancellationToken token = default)
 		{
 			int accountId = ClaimsReader.GetAccountId<int>(User);
 
