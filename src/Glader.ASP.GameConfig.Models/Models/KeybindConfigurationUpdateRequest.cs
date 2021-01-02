@@ -7,11 +7,10 @@ using Newtonsoft.Json;
 namespace Glader.ASP.GameConfig
 {
 	/// <summary>
-	/// Represents the result of a successful
-	/// configuration.
+	/// Request model that updates the keybinding gameconfig.
 	/// </summary>
 	[JsonObject]
-	public sealed class KeybindConfigurationResult : IConfigurationSourceable
+	public sealed class KeybindConfigurationUpdateRequest : IConfigurationSourceable
 	{
 		/// <summary>
 		/// The source of the configuration.
@@ -27,10 +26,12 @@ namespace Glader.ASP.GameConfig
 		[JsonProperty]
 		public byte[] KeybindData { get; private set; } = Array.Empty<byte>();
 
-		public KeybindConfigurationResult(ConfigurationSourceType source, byte[] keybindData)
+		public KeybindConfigurationUpdateRequest(byte[] keybindData)
 		{
-			if (!Enum.IsDefined(typeof(ConfigurationSourceType), source)) throw new InvalidEnumArgumentException(nameof(source), (int) source, typeof(ConfigurationSourceType));
-			Source = source;
+			//TODO: How should character specific config work?
+			//Cannot remotely update default, and character requires additional information
+			//so it's a request model. Maybe?
+			Source = ConfigurationSourceType.Account;
 			KeybindData = keybindData ?? throw new ArgumentNullException(nameof(keybindData));
 		}
 
@@ -38,9 +39,9 @@ namespace Glader.ASP.GameConfig
 		/// Serializer ctor.
 		/// </summary>
 		[JsonConstructor]
-		public KeybindConfigurationResult()
+		public KeybindConfigurationUpdateRequest()
 		{
-			
+
 		}
 	}
 }
