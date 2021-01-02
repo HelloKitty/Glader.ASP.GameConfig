@@ -8,7 +8,7 @@ namespace Glader.ASP.GameConfig
 	/// <summary>
 	/// <see cref="DbContext"/> implementation for Game Configuration tables.
 	/// </summary>
-	public sealed class GameConfigurationDatabaseContext : DbContext
+	public class GameConfigurationDatabaseContext : DbContext
 	{
 		//Tables with no suffic indicate it's global/account wide.
 		public DbSet<AccountKeybindConfiguration> AccountKeybindConfiguration { get; set; }
