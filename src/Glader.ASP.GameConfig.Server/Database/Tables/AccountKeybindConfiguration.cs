@@ -10,7 +10,7 @@ namespace Glader.ASP.GameConfig
 	/// keybindings table model. Represents the configuration for keybinds
 	/// and is linked to an account.
 	/// </summary>
-	[Table("keybindings")]
+	[Table("config_keybinding")]
 	public class AccountKeybindConfiguration
 	{
 		/// <summary>
