@@ -8,8 +8,4 @@
     <PackageReference Include="Glader.Essentials.Models" Version="2.2.48" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>
