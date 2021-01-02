@@ -6,7 +6,7 @@ using Glader.Essentials;
 namespace Glader.ASP.GameConfig
 {
 	/// <summary>
-	/// Response code valeus for game config queries.
+	/// Response code values for game config queries.
 	/// </summary>
 	public enum GameConfigQueryResponseCode
 	{
