@@ -59,6 +59,11 @@ namespace Glader.ASP.GameConfig.Application
 					options.TokenValidationParameters
 						.IssuerSigningKey = new X509SecurityKey(certificate);
 
+					//Don't check expiry
+					options.TokenValidationParameters.ValidateLifetime = false;
+
+					options.TokenValidationParameters.RequireExpirationTime = false;
+
 					//TODO: This audience stuff is ALL WRONG.
 					options.Audience = "auth-server";
 					options.TokenValidationParameters.ValidIssuer = "https://localhost:5003/";
