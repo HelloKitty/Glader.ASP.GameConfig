@@ -28,6 +28,13 @@ namespace Glader.ASP.GameConfig
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
+
+			//This produces a much easier to understand table.
+			modelBuilder.Entity<AccountKeybindConfiguration>()
+				.OwnsOne(o => o.Data, sa =>
+				{
+					sa.Property(p => p.Data).HasColumnName("data");
+				});
 		}
 	}
 }
