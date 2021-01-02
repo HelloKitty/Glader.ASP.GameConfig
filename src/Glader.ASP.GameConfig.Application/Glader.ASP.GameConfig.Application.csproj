@@ -14,11 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Glader.ASP.GameConfig.Client\Glader.ASP.GameConfig.Client.csproj" />
     <ProjectReference Include="..\Glader.ASP.GameConfig.Server\Glader.ASP.GameConfig.Server.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 
