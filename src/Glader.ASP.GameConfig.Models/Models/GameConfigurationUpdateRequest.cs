@@ -31,7 +31,7 @@ namespace Glader.ASP.GameConfig
 		/// as it's impossible to generally model this.
 		/// </summary>
 		[JsonProperty]
-		public byte[] KeybindData { get; private set; } = Array.Empty<byte>();
+		public byte[] Data { get; private set; } = Array.Empty<byte>();
 
 		public GameConfigurationUpdateRequest(ConfigurationSourceType source, TConfigType configType, byte[] data)
 		{
@@ -42,7 +42,7 @@ namespace Glader.ASP.GameConfig
 			//so it's a request model. Maybe?
 			Source = source;
 			ConfigType = configType;
-			KeybindData = data ?? throw new ArgumentNullException(nameof(data));
+			Data = data ?? throw new ArgumentNullException(nameof(data));
 		}
 
 		/// <summary>

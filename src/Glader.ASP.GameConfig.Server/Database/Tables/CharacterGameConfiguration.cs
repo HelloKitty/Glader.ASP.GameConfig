@@ -8,8 +8,8 @@ using System.Text;
 namespace Glader.ASP.GameConfig
 {
 	/// <summary>
-	/// Character specific Game Config table model. Represents the configuration for keybinds
-	/// and is linked to an account.
+	/// Character specific Game Config table model. Represents the configuration for Character-wide config
+	/// and is linked to a character.
 	/// </summary>
 	[Table("gameconfig_character")]
 	public class CharacterGameConfiguration<TConfigType> : IGameConfigurationTable<TConfigType>

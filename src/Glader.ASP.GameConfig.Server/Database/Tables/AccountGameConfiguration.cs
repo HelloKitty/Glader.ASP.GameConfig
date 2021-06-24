@@ -8,7 +8,7 @@ using System.Text;
 namespace Glader.ASP.GameConfig
 {
 	/// <summary>
-	/// Account-wide Game Config table model. Represents the configuration for keybinds
+	/// Account-wide Game Config table model. Represents the configuration for Account-wide config
 	/// and is linked to an account.
 	/// </summary>
 	[Table("gameconfig_account")]

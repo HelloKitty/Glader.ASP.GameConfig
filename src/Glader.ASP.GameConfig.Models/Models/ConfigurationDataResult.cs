@@ -11,7 +11,7 @@ namespace Glader.ASP.GameConfig
 	/// configuration.
 	/// </summary>
 	[JsonObject]
-	public sealed class KeybindConfigurationResult : IConfigurationSourceable
+	public sealed class ConfigurationDataResult : IConfigurationSourceable
 	{
 		/// <summary>
 		/// The source of the configuration.
@@ -20,25 +20,25 @@ namespace Glader.ASP.GameConfig
 		public ConfigurationSourceType Source { get; private set; }
 
 		/// <summary>
-		/// Represents a generic binary blob of serialized keybinds data.
-		/// This keeps keybind serialization generic to the library
+		/// Represents a generic binary blob of serialized config data.
+		/// This keeps game data serialization generic to the library
 		/// as it's impossible to generally model this.
 		/// </summary>
 		[JsonProperty]
-		public byte[] KeybindData { get; private set; } = Array.Empty<byte>();
+		public byte[] Data { get; private set; } = Array.Empty<byte>();
 
-		public KeybindConfigurationResult(ConfigurationSourceType source, byte[] keybindData)
+		public ConfigurationDataResult(ConfigurationSourceType source, byte[] data)
 		{
 			if (!Enum.IsDefined(typeof(ConfigurationSourceType), source)) throw new InvalidEnumArgumentException(nameof(source), (int) source, typeof(ConfigurationSourceType));
 			Source = source;
-			KeybindData = keybindData ?? throw new ArgumentNullException(nameof(keybindData));
+			Data = data ?? throw new ArgumentNullException(nameof(data));
 		}
 
 		/// <summary>
 		/// Serializer ctor.
 		/// </summary>
 		[JsonConstructor]
-		public KeybindConfigurationResult()
+		public ConfigurationDataResult()
 		{
 			
 		}

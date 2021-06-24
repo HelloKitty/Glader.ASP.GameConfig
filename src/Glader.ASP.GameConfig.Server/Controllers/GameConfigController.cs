@@ -39,7 +39,7 @@ namespace Glader.ASP.GameConfig
 
 			if(!await ContainsConfigEntryAsync(request.Source, request.ConfigType, ownershipId, token))
 				if(!await CreateConfigEntryAsync(request, ownershipId, token))
-					throw new InvalidOperationException($"Failed to create Keybind Config for Source: {request.Source} Id: {ownershipId}");
+					throw new InvalidOperationException($"Failed to create Config for Source: {request.Source} Id: {ownershipId}");
 
 			await UpdateConfigEntryAsync(request, ownershipId, token);
 		}
@@ -48,16 +48,16 @@ namespace Glader.ASP.GameConfig
 		[RequiresAuthentication]
 		[AuthorizeJwt]
 		[HttpGet("{source}/{config}")]
-		public async Task<ResponseModel<KeybindConfigurationResult, GameConfigQueryResponseCode>> RetrieveConfigAsync([FromRoute(Name = "source")] ConfigurationSourceType source, [FromRoute(Name = "config")] TConfigType configType, CancellationToken token = default)
+		public async Task<ResponseModel<ConfigurationDataResult, GameConfigQueryResponseCode>> RetrieveConfigAsync([FromRoute(Name = "source")] ConfigurationSourceType source, [FromRoute(Name = "config")] TConfigType configType, CancellationToken token = default)
 		{
 			int ownershipId = RetrieveOwnershipId(source);
 
 			if(!await ContainsConfigEntryAsync(source, configType, ownershipId, token))
-				return Failure<KeybindConfigurationResult, GameConfigQueryResponseCode>(GameConfigQueryResponseCode.ContentNotFound);
+				return Failure<ConfigurationDataResult, GameConfigQueryResponseCode>(GameConfigQueryResponseCode.ContentNotFound);
 
 			var entry = await RetrieveConfigEntryAsync(source, configType, ownershipId, token);
 
-			return Success<KeybindConfigurationResult, GameConfigQueryResponseCode>(new KeybindConfigurationResult(source, entry.Data.Data));
+			return Success<ConfigurationDataResult, GameConfigQueryResponseCode>(new ConfigurationDataResult(source, entry.Data.Data));
 		}
 
 		private int RetrieveOwnershipId(ConfigurationSourceType source)
@@ -74,14 +74,14 @@ namespace Glader.ASP.GameConfig
 				case ConfigurationSourceType.Account:
 				{
 					var entry = await AccountConfigRepository.RetrieveAsync(new GameConfigurationKey<TConfigType>(ownershipId, request.ConfigType), token);
-					entry.Data = new GameConfigData(request.KeybindData);
+					entry.Data = new GameConfigData(request.Data);
 					await AccountConfigRepository.UpdateAsync(new GameConfigurationKey<TConfigType>(ownershipId, request.ConfigType), entry, token);
 					return;
 				}
 				case ConfigurationSourceType.Character:
 				{
 					var entry = await CharacterConfigRepository.RetrieveAsync(new GameConfigurationKey<TConfigType>(ownershipId, request.ConfigType), token);
-					entry.Data = new GameConfigData(request.KeybindData);
+					entry.Data = new GameConfigData(request.Data);
 					await CharacterConfigRepository.UpdateAsync(new GameConfigurationKey<TConfigType>(ownershipId, request.ConfigType), entry, token);
 					return;
 				}
@@ -97,9 +97,9 @@ namespace Glader.ASP.GameConfig
 			switch(request.Source)
 			{
 				case ConfigurationSourceType.Account:
-					return await AccountConfigRepository.TryCreateAsync(new AccountGameConfiguration<TConfigType>(ownershipId, new GameConfigData(request.KeybindData), request.ConfigType), token);
+					return await AccountConfigRepository.TryCreateAsync(new AccountGameConfiguration<TConfigType>(ownershipId, new GameConfigData(request.Data), request.ConfigType), token);
 				case ConfigurationSourceType.Character:
-					return await CharacterConfigRepository.TryCreateAsync(new CharacterGameConfiguration<TConfigType>(ownershipId, new GameConfigData(request.KeybindData), request.ConfigType), token);
+					return await CharacterConfigRepository.TryCreateAsync(new CharacterGameConfiguration<TConfigType>(ownershipId, new GameConfigData(request.Data), request.ConfigType), token);
 				default:
 					throw new ArgumentOutOfRangeException(nameof(request.Source), request.Source, null);
 			}

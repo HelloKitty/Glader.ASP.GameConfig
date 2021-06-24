@@ -17,7 +17,7 @@ namespace Glader.ASP.GameConfig
 		where TConfigType : Enum
 	{
 		/// <summary>
-		/// Retrieves the keybind configuration with the specified source type and config type.
+		/// Retrieves the configuration with the specified source type and config type.
 		/// </summary>
 		/// <param name="source">The source for the configuration.</param>
 		/// <param name="configType">The config type.</param>
@@ -25,12 +25,12 @@ namespace Glader.ASP.GameConfig
 		/// <returns>Query result.</returns>
 		[RequiresAuthentication]
 		[Get("/api/GameConfig/{source}/{config}")]
-		Task<ResponseModel<KeybindConfigurationResult, GameConfigQueryResponseCode>> RetrieveConfigAsync([AliasAs("source")] ConfigurationSourceType source, [AliasAs("config")] TConfigType configType, CancellationToken token = default);
+		Task<ResponseModel<ConfigurationDataResult, GameConfigQueryResponseCode>> RetrieveConfigAsync([AliasAs("source")] ConfigurationSourceType source, [AliasAs("config")] TConfigType configType, CancellationToken token = default);
 
 		/// <summary>
-		/// Updates/Creates the keybind configuration for the account.
+		/// Updates/Creates the configuration for the account.
 		/// </summary>
-		/// <param name="request">The keybind configuration update request. Request source MUST be set to Account.</param>
+		/// <param name="request">The configuration update request. Request source MUST be set to Account.</param>
 		/// <param name="token">Cancel token.</param>
 		/// <returns>OK if successfully stored.</returns>
 		[RequiresAuthentication]
