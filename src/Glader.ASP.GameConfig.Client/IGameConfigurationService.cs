@@ -10,19 +10,22 @@ namespace Glader.ASP.GameConfig
 {
 	/// <summary>
 	/// Contract for REST service that provides
-	/// services discovery endpoints.
+	/// configuration data.
 	/// </summary>
 	[Headers("User-Agent: Glader")]
-	public interface IKeybindConfigurationService
+	public interface IGameConfigurationService<TConfigType> 
+		where TConfigType : Enum
 	{
 		/// <summary>
-		/// Retrieves the keybind configuration from the account if it exists.
+		/// Retrieves the keybind configuration with the specified source type and config type.
 		/// </summary>
+		/// <param name="source">The source for the configuration.</param>
+		/// <param name="configType">The config type.</param>
 		/// <param name="token">Cancel token.</param>
 		/// <returns>Query result.</returns>
 		[RequiresAuthentication]
-		[Get("/api/KeybindConfig/account")]
-		Task<ResponseModel<KeybindConfigurationResult, GameConfigQueryResponseCode>> RetrieveAccountBindsAsync(CancellationToken token = default);
+		[Get("/api/GameConfig/{source}/{config}")]
+		Task<ResponseModel<KeybindConfigurationResult, GameConfigQueryResponseCode>> RetrieveConfigAsync([AliasAs("source")] ConfigurationSourceType source, [AliasAs("config")] TConfigType configType, CancellationToken token = default);
 
 		/// <summary>
 		/// Updates/Creates the keybind configuration for the account.
@@ -31,7 +34,7 @@ namespace Glader.ASP.GameConfig
 		/// <param name="token">Cancel token.</param>
 		/// <returns>OK if successfully stored.</returns>
 		[RequiresAuthentication]
-		[Put("/api/KeybindConfig/account")]
-		Task UpdateAccountBindsAsync([JsonBody] KeybindConfigurationUpdateRequest request, CancellationToken token = default);
+		[Put("/api/GameConfig")]
+		Task UpdateGameConfigAsync([JsonBody] GameConfigurationUpdateRequest<TConfigType> request, CancellationToken token = default);
 	}
 }

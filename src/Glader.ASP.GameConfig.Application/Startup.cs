@@ -31,12 +31,12 @@ namespace Glader.ASP.GameConfig.Application
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllers()
-				.RegisterGameConfigControllers()
+				.RegisterGameConfigControllers<TestConfigType>()
 				.AddNewtonsoftJson();
 
 			services.RegisterGladerASP();
 
-			services.RegisterGameConfigDatabase(builder =>
+			services.RegisterGameConfigDatabase<TestConfigType>(builder =>
 			{
 				builder.UseMySql("server=127.0.0.1;port=3306;Database=glader.test;Uid=root;Pwd=test;", optionsBuilder =>
 				{

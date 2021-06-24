@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Glader.Essentials;
 using Microsoft.EntityFrameworkCore;
 
 namespace Glader.ASP.GameConfig
@@ -8,12 +9,14 @@ namespace Glader.ASP.GameConfig
 	/// <summary>
 	/// <see cref="DbContext"/> implementation for Game Configuration tables.
 	/// </summary>
-	public class GameConfigurationDatabaseContext : DbContext
+	public class GameConfigurationDatabaseContext<TConfigType> : DbContext 
+		where TConfigType : Enum
 	{
-		//Tables with no suffic indicate it's global/account wide.
-		public DbSet<AccountKeybindConfiguration> AccountKeybindConfiguration { get; set; }
+		public DbSet<AccountGameConfiguration<TConfigType>> AccountGameConfiguration { get; set; }
 
-		public GameConfigurationDatabaseContext(DbContextOptions<GameConfigurationDatabaseContext> options)
+		public DbSet<CharacterGameConfiguration<TConfigType>> CharacterGameConfiguration { get; set; }
+
+		public GameConfigurationDatabaseContext(DbContextOptions<GameConfigurationDatabaseContext<TConfigType>> options)
 			: base(options)
 		{
 
@@ -30,11 +33,29 @@ namespace Glader.ASP.GameConfig
 			base.OnModelCreating(modelBuilder);
 
 			//This produces a much easier to understand table.
-			modelBuilder.Entity<AccountKeybindConfiguration>()
-				.OwnsOne(o => o.Data, sa =>
+			modelBuilder.Entity<AccountGameConfiguration<TConfigType>>(builder =>
+			{
+				builder.OwnsOne(o => o.Data, sa =>
 				{
 					sa.Property(p => p.Data).HasColumnName("data");
 				});
+
+				builder.HasKey(m => new {m.AccountId, m.Type});
+			});
+
+			//TODO: Support foreign keys for this some how
+			modelBuilder.Entity<CharacterGameConfiguration<TConfigType>>(builder =>
+			{
+				builder.OwnsOne(o => o.Data, sa =>
+				{
+					sa.Property(p => p.Data).HasColumnName("data");
+				});
+
+				builder.HasKey(m => new { m.CharacterId, m.Type });
+			});
+
+			modelBuilder.Entity<GameConfigurationType<TConfigType>>()
+				.SeedWithEnum<GameConfigurationType<TConfigType>, TConfigType>(val => new GameConfigurationType<TConfigType>(val, val.ToString(), String.Empty));
 		}
 	}
 }

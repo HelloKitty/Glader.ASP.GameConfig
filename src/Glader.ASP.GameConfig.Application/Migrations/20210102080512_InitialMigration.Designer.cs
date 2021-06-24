@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Glader.ASP.GameConfig.Application.Migrations
 {
-    [DbContext(typeof(GameConfigurationDatabaseContext))]
+    [DbContext(typeof(GameConfigurationDatabaseContext<TestConfigType>))]
     [Migration("20210102080512_InitialMigration")]
     partial class InitialMigration
     {

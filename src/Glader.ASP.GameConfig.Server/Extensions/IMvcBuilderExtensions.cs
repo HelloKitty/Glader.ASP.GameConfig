@@ -22,9 +22,10 @@ namespace Glader.ASP.GameConfig
 		/// <param name="builder"></param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static IMvcBuilder RegisterGameConfigControllers(this IMvcBuilder builder)
+		public static IMvcBuilder RegisterGameConfigControllers<TConfigType>(this IMvcBuilder builder) 
+			where TConfigType : Enum
 		{
-			return builder.RegisterController<KeybindConfigController>();
+			return builder.RegisterController<GameConfigController<TConfigType>>();
 		}
 	}
 }

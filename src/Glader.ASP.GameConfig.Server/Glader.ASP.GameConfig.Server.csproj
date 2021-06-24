@@ -6,7 +6,7 @@
 
   <PropertyGroup>
     <RootNamespace>Glader.ASP.GameConfig</RootNamespace>
-    <Version>0.0.2</Version>
+    <Version>0.1.3</Version>
     <Authors>Andrew Blakely, Glader</Authors>
     <Product>Glader.ASP.GameConfig</Product>
     <Description>Glader.ASP.GameConfig is an ASP Core, EntityFramework, Refit-based and JSON-based Game Configuration service library.</Description>
@@ -16,11 +16,12 @@
     <PackageTags>Glader ASP GameConfig Game Configuration GameConfiguration Config</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <IncludeSymbols>true</IncludeSymbols>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Glader.Essentials.ASP" Version="2.2.48" />
-    <PackageReference Include="Glader.Essentials.Database" Version="2.2.48" />
+    <PackageReference Include="Glader.Essentials.ASP" Version="2.2.74" />
+    <PackageReference Include="Glader.Essentials.Database" Version="2.2.74" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.10" />
   </ItemGroup>
 

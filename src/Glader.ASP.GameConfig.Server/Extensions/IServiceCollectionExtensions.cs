@@ -10,32 +10,35 @@ namespace Glader.ASP.GameConfig
 	public static class IServiceCollectionExtensions
 	{
 		/// <summary>
-		/// Registers a <see cref="GameConfigurationDatabaseContext"/> and <see cref="IAccountKeybindConfigurationRepository"/>
+		/// Registers a <see cref="GameConfigurationDatabaseContext{TConfigType}"/> and <see cref="GameConfigurationRepository{TConfigType,TConfigurationModelType}"/>
 		/// in the provided <see cref="services"/>.
 		/// </summary>
 		/// <param name="services">Service container.</param>
 		/// <param name="optionsAction">The DB context options action.</param>
 		/// <returns></returns>
-		public static IServiceCollection RegisterGameConfigDatabase(this IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction)
+		public static IServiceCollection RegisterGameConfigDatabase<TConfigType>(this IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction) 
+			where TConfigType : Enum
 		{
-			return RegisterGameConfigDatabase<GameConfigurationDatabaseContext>(services, optionsAction);
+			return RegisterGameConfigDatabase<GameConfigurationDatabaseContext<TConfigType>, TConfigType>(services, optionsAction);
 		}
 
 		/// <summary>
-		/// Registers a <see cref="GameConfigurationDatabaseContext"/> of the specificed generic type and <see cref="IAccountKeybindConfigurationRepository"/>
+		/// Registers a <see cref="GameConfigurationDatabaseContext{TConfigType}"/> of the specificed generic type and <see cref="GameConfigurationRepository{TConfigType,TConfigurationModelType}"/>
 		/// in the provided <see cref="services"/>.
 		/// </summary>
 		/// <param name="services">Service container.</param>
 		/// <param name="optionsAction">The DB context options action.</param>
 		/// <returns></returns>
-		public static IServiceCollection RegisterGameConfigDatabase<TDatabaseContextType>(this IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction)
-			where TDatabaseContextType : GameConfigurationDatabaseContext
+		public static IServiceCollection RegisterGameConfigDatabase<TDatabaseContextType, TConfigType>(this IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction)
+			where TDatabaseContextType : GameConfigurationDatabaseContext<TConfigType> 
+			where TConfigType : Enum
 		{
 			if(services == null) throw new ArgumentNullException(nameof(services));
 			if(optionsAction == null) throw new ArgumentNullException(nameof(optionsAction));
 
 			//DefaultServiceEndpointRepository : IServiceEndpointRepository
-			services.AddTransient<IAccountKeybindConfigurationRepository, AccountKeybindConfigurationRepository>();
+			services.AddTransient<IAccountGameConfigurationRepository<TConfigType>, AccountGameConfigurationRepository<TConfigType>>();
+			services.AddTransient<ICharacterGameConfigurationRepository<TConfigType>, CharacterGameConfigurationRepository<TConfigType>>();
 			services.AddDbContext<TDatabaseContextType>(optionsAction);
 
 			//Example:

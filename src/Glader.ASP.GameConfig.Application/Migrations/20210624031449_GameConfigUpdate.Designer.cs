@@ -3,14 +3,16 @@ using System;
 using Glader.ASP.GameConfig;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Glader.ASP.GameConfig.Application.Migrations
 {
     [DbContext(typeof(GameConfigurationDatabaseContext<TestConfigType>))]
-    partial class GameConfigurationDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210624031449_GameConfigUpdate")]
+    partial class GameConfigUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,26 +67,6 @@ namespace Glader.ASP.GameConfig.Application.Migrations
                     b.HasKey("Type");
 
                     b.ToTable("gameconfig_type");
-
-                    b.HasData(
-                        new
-                        {
-                            Type = 1,
-                            Description = "",
-                            VisualName = "Keybind"
-                        },
-                        new
-                        {
-                            Type = 2,
-                            Description = "",
-                            VisualName = "Actionbar"
-                        },
-                        new
-                        {
-                            Type = 3,
-                            Description = "",
-                            VisualName = "Video"
-                        });
                 });
 
             modelBuilder.Entity("Glader.ASP.GameConfig.AccountGameConfiguration<Glader.ASP.GameConfig.TestConfigType>", b =>
