@@ -130,9 +130,9 @@ namespace Glader.ASP.GameConfig
 			switch(source)
 			{
 				case ConfigurationSourceType.Account:
-					return !await AccountConfigRepository.ContainsAsync(new GameConfigurationKey<TConfigType>(ownershipId, configType), token);
+					return await AccountConfigRepository.ContainsAsync(new GameConfigurationKey<TConfigType>(ownershipId, configType), token);
 				case ConfigurationSourceType.Character:
-					return !await CharacterConfigRepository.ContainsAsync(new GameConfigurationKey<TConfigType>(ownershipId, configType), token);
+					return await CharacterConfigRepository.ContainsAsync(new GameConfigurationKey<TConfigType>(ownershipId, configType), token);
 				default:
 					throw new ArgumentOutOfRangeException(nameof(source), source, null);
 			}
