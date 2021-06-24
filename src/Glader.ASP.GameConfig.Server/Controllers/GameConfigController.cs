@@ -11,7 +11,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Glader.ASP.GameConfig
 {
-	[Route("api/[controller]")]
+	//Cannot use [Controller] doesn't work with generics
+	[Route("api/GameConfig")]
 	public sealed class GameConfigController<TConfigType> : AuthorizationReadyController, IGameConfigurationService<TConfigType>
 		where TConfigType : Enum
 	{
