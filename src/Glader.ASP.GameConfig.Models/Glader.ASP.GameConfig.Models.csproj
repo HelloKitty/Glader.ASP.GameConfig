@@ -6,7 +6,7 @@
 
   <PropertyGroup>
     <RootNamespace>Glader.ASP.GameConfig</RootNamespace>
-    <Version>0.1.5</Version>
+    <Version>0.1.6</Version>
     <Authors>Andrew Blakely, Glader</Authors>
     <Product>Glader.ASP.GameConfig</Product>
     <Description>Glader.ASP.GameConfig is an ASP Core, EntityFramework, Refit-based and JSON-based Game Configuration service library.</Description>
